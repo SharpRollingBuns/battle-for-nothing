@@ -11,5 +11,12 @@ config_version=5
 [application]
 
 config/name="Battle for Nothing"
+run/main_scene="uid://wx6tjeybl4nr"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=800
+window/stretch/mode="viewport"
