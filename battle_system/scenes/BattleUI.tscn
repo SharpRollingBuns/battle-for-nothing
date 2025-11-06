@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://d25geknfvijnp"]
+
+[ext_resource type="Script" uid="uid://dw2uih6ueju6f" path="res://battle_system/scripts/battle_ui.gd" id="1_xgg3j"]
+
+[node name="BattleUI" type="Control" node_paths=PackedStringArray("hp_bar", "cp_bar", "action_panel", "target_panel", "enemy_info_panel", "battle_log", "turn_counter")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xgg3j")
+hp_bar = NodePath("HPBar")
+cp_bar = NodePath("CPBar")
+action_panel = NodePath("VBoxContainer")
+target_panel = NodePath("TargetPanel")
+enemy_info_panel = NodePath("EnemyInfoPanel")
+battle_log = NodePath("BattleLog")
+turn_counter = NodePath("Label")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+modulate = Color(0.4956687, 0.8633464, 0, 1)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 770.0
+offset_right = 723.0
+offset_bottom = 797.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CPBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 737.0
+offset_right = 735.0
+offset_bottom = 764.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 833.99994
+offset_top = 449.0
+offset_right = 895.99994
+offset_bottom = 550.0
+scale = Vector2(6.9309487, 3.4859343)
+
+[node name="AttackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Attack"
+
+[node name="AbilityButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Ability"
+
+[node name="EscapeButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Escape"
+
+[node name="TargetPanel" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EnemyInfoPanel" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 880.0
+offset_top = 145.0
+offset_right = 920.0
+offset_bottom = 185.0
+
+[node name="BattleLog" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 483.0
+offset_right = 54.0
+offset_bottom = 523.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_right = 47.0
+offset_bottom = 23.0
