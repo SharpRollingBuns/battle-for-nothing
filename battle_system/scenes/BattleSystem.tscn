@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://daaw7lonpb7bu"]
 
-[ext_resource type="Script" uid="uid://dk7v6wac663yg" path="res://battle_system/scripts/battle_system.gd" id="1_iya3r"]
+[ext_resource type="Script" uid="uid://dk7v6wac663yg" path="res://battle_system/scripts/battle/battle_system.gd" id="1_iya3r"]
 [ext_resource type="PackedScene" uid="uid://dj2su3q67li6c" path="res://scenes/player.tscn" id="2_uxmpg"]
 [ext_resource type="PackedScene" uid="uid://s3nhycs1utsq" path="res://scenes/enemy.tscn" id="3_5a783"]
 
@@ -8,22 +8,18 @@
 script = ExtResource("1_iya3r")
 
 [node name="Player" parent="." instance=ExtResource("2_uxmpg")]
+special_power = 5.0
 max_hp = 100
-max_cp = 20
+max_cp = 30
 damage = 20
 speed = 5
-cp = 20
+cp = 30
 
 [node name="Enemy" parent="." instance=ExtResource("3_5a783")]
-position = Vector2(610, 319)
-enemy_type = 1
+position = Vector2(496, 138)
 
 [node name="Enemy2" parent="." instance=ExtResource("3_5a783")]
-position = Vector2(571, 135)
-enemy_type = 3
+position = Vector2(676, 507)
 
 [node name="Enemy3" parent="." instance=ExtResource("3_5a783")]
-position = Vector2(545, 516)
-enemy_type = 4
-
-[node name="EnemiesContainer" type="Node" parent="."]
+position = Vector2(610, 290)

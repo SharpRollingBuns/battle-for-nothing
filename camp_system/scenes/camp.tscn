@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy5j35vay1d1q"]
+
+[ext_resource type="Script" uid="uid://cjd7ead06rr86" path="res://camp_system/scipts/camp.gd" id="1_8bqci"]
+[ext_resource type="Script" uid="uid://d3ifcab375buo" path="res://camp_system/scipts/camp_system.gd" id="1_qadtm"]
+[ext_resource type="Texture2D" uid="uid://cnlp2gk7u1al7" path="res://camp_system/assets/pikselnyi-les-4.webp" id="1_yltvs"]
+
+[node name="CampScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8bqci")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(31.92, 19.960001)
+texture = ExtResource("1_yltvs")
+expand_mode = 1
+
+[node name="PlayerInfo" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 139.0
+
+[node name="LavelLabel" type="Label" parent="PlayerInfo"]
+layout_mode = 2
+
+[node name="HPLabel" type="Label" parent="PlayerInfo"]
+layout_mode = 2
+
+[node name="HPBar" type="ProgressBar" parent="PlayerInfo"]
+modulate = Color(0.4956687, 0.8633464, 0, 1)
+layout_mode = 2
+
+[node name="CPLabel" type="Label" parent="PlayerInfo"]
+layout_mode = 2
+
+[node name="CPBar" type="ProgressBar" parent="PlayerInfo"]
+layout_mode = 2
+
+[node name="ActionButtons" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 597.0
+offset_right = 451.0
+offset_bottom = 637.0
+
+[node name="RestButton" type="Button" parent="ActionButtons"]
+layout_mode = 2
+
+[node name="HuntButton" type="Button" parent="ActionButtons"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1011.0
+offset_top = 18.0
+offset_right = 1012.0
+offset_bottom = 41.0
+grow_horizontal = 2
+
+[node name="CampSystem" type="Node" parent="." node_paths=PackedStringArray("player_info", "rest_button", "hunt_button", "status_label", "level_label", "hp_label", "cp_label")]
+script = ExtResource("1_qadtm")
+player_info = NodePath("../PlayerInfo")
+rest_button = NodePath("../ActionButtons/RestButton")
+hunt_button = NodePath("../ActionButtons/HuntButton")
+status_label = NodePath("../StatusLabel")
+level_label = NodePath("../PlayerInfo/LavelLabel")
+hp_label = NodePath("../PlayerInfo/HPLabel")
+cp_label = NodePath("../PlayerInfo/CPLabel")

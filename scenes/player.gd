@@ -6,8 +6,7 @@ extends Character
 @export var cp_gain: float = 0
 @export var level: int = 1
 @export var xp: int = 0
-
-
+@export var is_defending: bool = false
 
 # Добавляем методы для восстановления CP (маны)
 func gain_cp(amount: int) -> int:
@@ -15,6 +14,9 @@ func gain_cp(amount: int) -> int:
 	cp = min(max_cp, cp + cp_gained)
 	return cp_gained
 
+
+func get_level() -> int:
+	return level
 
 
 func _ready():
@@ -31,3 +33,16 @@ func level_up():
 	special_power *= 1.25
 	hp = max_hp
 	cp = max_cp
+
+
+func save_state() -> Dictionary:
+	return {
+		"level": level,
+		"hp": hp,
+		"max_hp": max_hp,
+		"cp": cp,
+		"max_cp": max_cp,
+		"damage": damage,
+		"speed": speed,
+		"special_power": special_power
+	}

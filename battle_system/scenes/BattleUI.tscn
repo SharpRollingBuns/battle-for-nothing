@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://d25geknfvijnp"]
 
-[ext_resource type="Script" uid="uid://dw2uih6ueju6f" path="res://battle_system/scripts/battle_ui.gd" id="1_xgg3j"]
+[ext_resource type="Script" uid="uid://dw2uih6ueju6f" path="res://battle_system/scripts/battle/battle_ui.gd" id="1_xgg3j"]
 
-[node name="BattleUI" type="Control" node_paths=PackedStringArray("hp_bar", "cp_bar", "action_panel", "target_panel", "enemy_info_panel", "battle_log", "turn_counter")]
+[node name="BattleUI" type="Control" node_paths=PackedStringArray("hp_bar", "cp_bar", "action_panel", "target_panel", "enemy_info_panel", "battle_log", "turn_counter", "hp_label", "cp_label")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_xgg3j")
@@ -13,6 +13,8 @@ target_panel = NodePath("TargetPanel")
 enemy_info_panel = NodePath("EnemyInfoPanel")
 battle_log = NodePath("BattleLog")
 turn_counter = NodePath("Label")
+hp_label = NodePath("HPLabel")
+cp_label = NodePath("CPLabel")
 
 [node name="HPBar" type="ProgressBar" parent="."]
 modulate = Color(0.4956687, 0.8633464, 0, 1)
@@ -21,27 +23,28 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 770.0
-offset_right = 723.0
-offset_bottom = 797.0
+offset_left = 6.0
+offset_top = 742.0
+offset_right = 724.0
+offset_bottom = 769.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(0.76000124, 1.0104644)
 
 [node name="CPBar" type="ProgressBar" parent="."]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 737.0
-offset_right = 735.0
-offset_bottom = 764.0
+offset_left = 1.0
+offset_top = 772.00006
+offset_right = 732.0
+offset_bottom = 799.00006
+scale = Vector2(0.81069475, 1.0000002)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 833.99994
-offset_top = 449.0
-offset_right = 895.99994
-offset_bottom = 550.0
-scale = Vector2(6.9309487, 3.4859343)
+offset_left = 15.0
+offset_top = 596.0
+offset_right = 80.0
+offset_bottom = 732.0
 
 [node name="AttackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -60,6 +63,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Escape"
 
+[node name="DefendButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Defend"
+
 [node name="TargetPanel" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 40.0
@@ -74,13 +81,27 @@ offset_bottom = 185.0
 
 [node name="BattleLog" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 483.0
-offset_right = 597.0
-offset_bottom = 662.0
+offset_left = 639.99994
+offset_top = 564.0
+offset_right = 1222.9999
+offset_bottom = 743.0
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 7.0
 offset_right = 47.0
 offset_bottom = 23.0
+
+[node name="HPLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 741.0
+offset_right = 600.0
+offset_bottom = 764.0
+
+[node name="CPLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 609.0
+offset_top = 775.0
+offset_right = 649.0
+offset_bottom = 798.0
