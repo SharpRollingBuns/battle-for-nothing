@@ -17,6 +17,7 @@ var current_target: Character = null
 var player: Player = null
 
 func _ready():
+	# Проверяем существование необходимых узлов
 	var missing_nodes = []
 	if hp_bar == null: missing_nodes.append("hp_bar")
 	if cp_bar == null: missing_nodes.append("cp_bar")
@@ -37,13 +38,12 @@ func _ready():
 	
 	# Проверяем, подключен ли battle_system
 	if battle_system:
-		# Проверяем, не подключен ли уже сигнал
-		if battle_system.turn_started.is_connected(_on_turn_started):
-			battle_system.turn_started.disconnect(_on_turn_started)
+		# Подключаем сигналы
 		if battle_system.battle_ended.is_connected(_on_battle_ended):
 			battle_system.battle_ended.disconnect(_on_battle_ended)
+		if battle_system.turn_started.is_connected(_on_turn_started):
+			battle_system.turn_started.disconnect(_on_turn_started)
 		
-		# Подключаем сигналы
 		battle_system.turn_started.connect(_on_turn_started)
 		battle_system.battle_ended.connect(_on_battle_ended)
 	
@@ -84,12 +84,9 @@ func _connect_action_buttons():
 						button.pressed.connect(_on_defend_pressed)
 					"EscapeButton":
 						button.pressed.connect(_on_escape_pressed)
-				
-				# Добавляем проверку состояния для визуального отключения
 				button.disabled = false
 			else:
 				push_warning("Кнопка %s не найдена" % button_name)
-		# Не выводим ошибку, если кнопка не найдена - это допустимо
 
 func _update_interface():
 	if player == null:
@@ -119,7 +116,8 @@ func _update_enemy_info():
 	for enemy in battle_system.enemies:
 		if is_instance_valid(enemy) && enemy.is_alive():
 			var enemy_label = Label.new()
-			enemy_label.text = "%s: %d/%d HP" % [enemy.name, enemy.hp, enemy.max_hp]
+			# Используем character_name вместо name
+			enemy_label.text = "%s: %d/%d HP" % [enemy.character_name, enemy.hp, enemy.max_hp]
 			enemy_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 			enemy_label.size_flags_horizontal = SIZE_EXPAND_FILL
 			enemy_info_panel.add_child(enemy_label)
@@ -154,7 +152,7 @@ func _show_targets(only_enemies: bool = true):
 		for enemy in battle_system.enemies:
 			if is_instance_valid(enemy) && enemy.is_alive():
 				var button = Button.new()
-				button.text = enemy.name
+				button.text = enemy.character_name
 				button.name = "Target_%d" % count
 				button.pressed.connect(Callable(self, "_on_target_selected").bind(enemy))
 				target_panel.add_child(button)
@@ -171,7 +169,7 @@ func _show_targets(only_enemies: bool = true):
 		for enemy in battle_system.enemies:
 			if is_instance_valid(enemy) && enemy.is_alive():
 				var button = Button.new()
-				button.text = enemy.name
+				button.text = enemy.character_name
 				button.name = "Target_%d" % count
 				button.pressed.connect(Callable(self, "_on_target_selected").bind(enemy))
 				target_panel.add_child(button)
@@ -214,7 +212,7 @@ func _on_turn_started(combatant: Character):
 		# Ход врага - скрываем панель действий
 		action_panel.visible = false
 		target_panel.visible = false
-		_log_action("%s ходит..." % combatant.name, "enemy")
+		_log_action("%s ходит..." % combatant.character_name, "enemy")
 		
 		# Имитируем задержку перед ходом врага
 		get_tree().create_timer(1.0).timeout.connect(_handle_enemy_turn)
@@ -266,27 +264,49 @@ func _handle_enemy_turn():
 		battle_system.next_turn()
 
 func _on_battle_ended(winner_is_player: bool):
-	if winner_is_player:
-		# Сохраняем данные игрока в синглтон
-		if PlayerData:
-			PlayerData.level = player.level
-			PlayerData.hp = player.hp
-			PlayerData.max_hp = player.max_hp
-			PlayerData.cp = player.cp
-			PlayerData.max_cp = player.max_cp
-			PlayerData.damage = player.damage
-			PlayerData.special_power = player.special_power
-			
-			# Увеличиваем счетчик боев подряд
-			PlayerData.consecutive_battles += 1
-	else:
-		if battle_system.escape_active and PlayerData:
-			PlayerData.escape_penalty = 2
+	action_panel.visible = false
+	target_panel.visible = false
 	
-	# Показываем соответствующие панели
 	if winner_is_player:
+		_log_action("\n[ПОБЕДА!] Все враги побеждены!", "system")
+		
+		# Проверяем, был ли в бою друид
+		var has_druid = false
+		for enemy in battle_system.enemies:
+			if is_instance_valid(enemy) && enemy.enemy_type == Enemy.Type.DRUID:
+				has_druid = true
+				break
+		
+		# Если был друид - получаем опыт за каждого убитого зверя
+		if has_druid:
+			for enemy in battle_system.enemies:
+				if is_instance_valid(enemy) && enemy != player && enemy.enemy_type != Enemy.Type.DRUID && !enemy.is_alive():
+					player.level_up()
+					_log_action("УРОВЕНЬ ПОВЫШЕН! +1 уровень за убийство зверя в бою с друидом!", "system")
+		
+		# НЕ восстанавливаем здоровье и ману полностью
+		# Вместо этого даем небольшое восстановление за победу
+		var heal_amount = max(1, int(player.max_hp * 0.1))  # 10% от максимального HP
+		var cp_gain = max(1, int(player.max_cp * 0.15))   # 15% от максимального CP
+		
+		player.hp = min(player.max_hp, player.hp + heal_amount)
+		player.cp = min(player.max_cp, player.cp + cp_gain)
+		
+		_log_action("Вы восстановили %d HP и %d CP за победу!" % [heal_amount, cp_gain], "system")
+		_update_interface()
+		
+		# Показываем выбор после победы
 		_show_victory_options()
 	else:
+		# Проверяем, был ли побег
+		if battle_system.escape_active:
+			_log_action("\n[УСПЕШНЫЙ ПОБЕГ] Вы сбежали из боя!", "system")
+			# При побеге уменьшаем уровень на 2 для следующих 2-х боев
+			battle_system.escape_penalty = 2
+		else:
+			_log_action("\n[ПОРАЖЕНИЕ] Вы проиграли битву...", "system")
+		
+		# Показываем кнопку возврата в лагерь
 		_show_defeat_options()
 
 func _show_victory_options():
@@ -434,7 +454,14 @@ func _on_continue_hunting_pressed():
 	battle_system.emit_signal("turn_started", battle_system.combat_queue[0])
 
 func _on_return_to_camp_pressed():
-	# Все данные уже сохранены в синглтоне
+	# Сохраняем ТЕКУЩЕЕ состояние игрока (здоровье и мана не восстанавливаются)
+	Engine.get_main_loop().set_meta("player_level", player.level)
+	Engine.get_main_loop().set_meta("player_hp", player.hp)       # Текущее здоровье
+	Engine.get_main_loop().set_meta("player_max_hp", player.max_hp)
+	Engine.get_main_loop().set_meta("player_cp", player.cp)       # Текущая мана
+	Engine.get_main_loop().set_meta("player_max_cp", player.max_cp)
+	
+	# Возвращаемся в лагерь
 	get_tree().change_scene_to_file("res://camp_system/scenes/camp.tscn")
 
 # Обработчики действий игрока
@@ -482,14 +509,14 @@ func _execute_action(target: Character):
 		"attack":
 			var damage_dealt = player.damage
 			target.take_damage(damage_dealt)
-			log_message = "Вы атаковали %s и нанесли %d урона!" % [target.name, damage_dealt]
+			log_message = "Вы атаковали %s и нанесли %d урона!" % [target.character_name, damage_dealt]
 		
 		"strong_strike":
 			if player.cp >= 3:
 				player.cp -= 3
 				var damage_dealt = player.damage * 1.8 * player.special_power
 				target.take_damage(damage_dealt)
-				log_message = "Вы применили Сильный удар по %s и нанесли %d урона!" % [target.name, damage_dealt]
+				log_message = "Вы применили Сильный удар по %s и нанесли %d урона!" % [target.character_name, damage_dealt]
 			else:
 				log_message = "Недостаточно CP для Сильного удара!"
 				action_result = false

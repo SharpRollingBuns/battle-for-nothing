@@ -1,6 +1,5 @@
 extends Node
 
-# Данные игрока
 var level: int = 1
 var hp: int = 100
 var max_hp: int = 100
@@ -10,8 +9,7 @@ var damage: int = 10
 var special_power: float = 1.0
 var escape_penalty: int = 0
 var consecutive_battles: int = 0
-var current_enemy_party: Array = []
-# Методы для работы с данными
+
 func save_current_state(player: Player):
 	if player != null:
 		level = player.level

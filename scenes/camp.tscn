@@ -1,20 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://cy5j35vay1d1q"]
 
-[ext_resource type="Script" uid="uid://cjd7ead06rr86" path="res://camp_system/scipts/camp.gd" id="1_8bqci"]
-[ext_resource type="Script" uid="uid://d3ifcab375buo" path="res://camp_system/scipts/camp_system.gd" id="1_qadtm"]
-[ext_resource type="Texture2D" uid="uid://cnlp2gk7u1al7" path="res://camp_system/assets/pikselnyi-les-4.webp" id="1_yltvs"]
+[ext_resource type="Script" uid="uid://cjd7ead06rr86" path="res://camp_system/scipts/camp.gd" id="1_c5nam"]
+[ext_resource type="Texture2D" uid="uid://cnlp2gk7u1al7" path="res://camp_system/assets/pikselnyi-les-4.webp" id="2_nsjlq"]
+[ext_resource type="Script" uid="uid://d3ifcab375buo" path="res://camp_system/scipts/camp_system.gd" id="3_tafug"]
 
 [node name="CampScene" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_8bqci")
+script = ExtResource("1_c5nam")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(31.92, 19.960001)
-texture = ExtResource("1_yltvs")
+texture = ExtResource("2_nsjlq")
 expand_mode = 1
 
 [node name="PlayerInfo" type="VBoxContainer" parent="."]
@@ -63,7 +63,7 @@ offset_bottom = 41.0
 grow_horizontal = 2
 
 [node name="CampSystem" type="Node" parent="." node_paths=PackedStringArray("player_info", "rest_button", "hunt_button", "status_label", "level_label", "hp_label", "cp_label")]
-script = ExtResource("1_qadtm")
+script = ExtResource("3_tafug")
 player_info = NodePath("../PlayerInfo")
 rest_button = NodePath("../ActionButtons/RestButton")
 hunt_button = NodePath("../ActionButtons/HuntButton")

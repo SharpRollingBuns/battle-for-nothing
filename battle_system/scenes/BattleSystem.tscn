@@ -9,17 +9,51 @@ script = ExtResource("1_iya3r")
 
 [node name="Player" parent="." instance=ExtResource("2_uxmpg")]
 special_power = 5.0
-max_hp = 100
 max_cp = 30
 damage = 20
 speed = 5
-cp = 30
 
 [node name="Enemy" parent="." instance=ExtResource("3_5a783")]
 position = Vector2(496, 138)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null
+hp = null
+cp = null
 
 [node name="Enemy2" parent="." instance=ExtResource("3_5a783")]
 position = Vector2(676, 507)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null
+hp = null
+cp = null
 
 [node name="Enemy3" parent="." instance=ExtResource("3_5a783")]
 position = Vector2(610, 290)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null
+hp = null
+cp = null
+
+[node name="EnemiesContainer" type="Node2D" parent="."]
+position = Vector2(772, 280)

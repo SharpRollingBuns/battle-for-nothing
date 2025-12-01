@@ -19,39 +19,42 @@ func _ready():
 	# Инициализируем базовые характеристики в зависимости от типа
 	match enemy_type:
 		Type.SKELETON:
-			name = "Скелет"
+			character_name = "Скелет"
 			max_hp = 30
 			max_cp = 0
 			damage = 5
 			speed = 8
 		Type.BOAR:
-			name = "Кабан"
+			character_name = "Кабан"
 			max_hp = 80
 			max_cp = 0
 			damage = 15
 			speed = 10
 			original_damage = damage
 		Type.WOLF:
-			name = "Волк"
+			character_name = "Волк"
 			max_hp = 25
 			max_cp = 0
 			damage = 8
 			speed = 18
 		Type.BEAR:
-			name = "Медведь"
+			character_name = "Медведь"
 			max_hp = 200
 			max_cp = 0
 			damage = 12
 			speed = 6
 			original_damage = damage
 		Type.DRUID:
-			name = "Друид"
+			character_name = "Друид"
 			max_hp = 150
 			max_cp = 0
 			damage = 0
 			speed = 12
 	
 	hp = max_hp
+	cp = max_cp
+	# Устанавливаем имя узла
+	name = character_name
 	super._ready()
 
 func take_damage(amount: int) -> int:
@@ -75,37 +78,37 @@ func get_action_description(target: Character) -> String:
 	
 	match enemy_type:
 		Type.SKELETON:
-			description = "[Скелет] атакует %s, нанося %d урона!" % [target.name, damage]
+			description = "[Скелет] атакует %s и наносит %d урона!" % [target.character_name, damage]
 		
 		Type.BOAR:
 			if cooldown % 2 == 0:
-				description = "[Кабан] бьёт копытами %s, нанося %d урона!" % [target.name, damage]
+				description = "[Кабан] бьёт копытами %s, нанося %d урона!" % [target.character_name, damage]
 			else:
 				description = "[Кабан] злится и готовится к мощной атаке..."
 		
 		Type.WOLF:
-			description = "[Волк] нападает на %s, нанося %d урона!" % [target.name, damage]
+			description = "[Волк] нападает на %s, нанося %d урона!" % [target.character_name, damage]
 		
 		Type.BEAR:
 			if enraged:
-				description = "[Медведь] впадает в ярость и атакует %s, нанося %d урона!" % [target.name, damage]
+				description = "[Медведь] впадает в ярость и атакует %s, нанося %d урона!" % [target.character_name, damage]
 				enraged = false
 			else:
-				description = "[Медведь] атакует %s, нанося %d урона!" % [target.name, damage]
+				description = "[Медведь] атакует %s, нанося %d урона!" % [target.character_name, damage]
 		
 		Type.DRUID:
 			var healed_target = null
 			var healed_amount = 0
 			
 			# Ищем, кого вылечил друид
-			for e in get_parent().enemies:  # get_parent() - BattleSystem
+			for e in get_parent().enemies:
 				if e != self and is_instance_valid(e) and e.is_alive() and e.hp < e.max_hp:
 					healed_target = e
 					healed_amount = 20
 					break
 			
 			if healed_target != null:
-				description = "[Друид] лечит %s на %d HP!" % [healed_target.name, healed_amount]
+				description = "[Друид] лечит %s на %d HP!" % [healed_target.character_name, healed_amount]
 			else:
 				description = "[Друид] не находит раненых союзников для лечения"
 	
@@ -191,3 +194,12 @@ func get_base_speed() -> int:
 		Type.BEAR: return 6
 		Type.DRUID: return 12
 		_: return 10
+
+func get_enemy_color() -> Color:
+	match enemy_type:
+		Type.SKELETON: return Color(0.7, 0.7, 0.7)  # Серый
+		Type.BOAR: return Color(0.6, 0.4, 0.2)        # Коричневый
+		Type.WOLF: return Color(0.5, 0.5, 0.4)        # Серо-коричневый
+		Type.BEAR: return Color(0.4, 0.3, 0.2)        # Темно-коричневый
+		Type.DRUID: return Color(0.7, 0.3, 0.8)       # Фиолетовый
+		_: return Color.WHITE

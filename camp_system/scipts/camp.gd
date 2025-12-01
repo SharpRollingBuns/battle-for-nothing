@@ -1,83 +1,65 @@
 extends Control
 
+var player_data = {
+	"level": 1,
+	"hp": 100,
+	"max_hp": 100,
+	"cp": 20,
+	"max_cp": 20
+}
+
 func _ready():
-	# Проверяем UI элементы
-	if $PlayerInfo == null:
-		push_error("PlayerInfo контейнер не найден!")
-		return
-	
-	# Инициализируем UI
 	_setup_ui()
-	
-	# Загружаем данные игрока
 	_load_player_data()
-	
-	# Подключаем кнопки
 	_connect_buttons()
 	
-	# Проверяем, что PlayerData доступен
-	if not PlayerData:
-		push_error("PlayerData синглтон не доступен! Убедитесь, что он добавлен в AutoLoad.")
+	# Добавляем проверку существования сцены боя
+	if !ResourceLoader.exists("res://scenes/battle.tscn"):
+		print("Предупреждение: Сцена боя не найдена! Создайте сцену боя в папке scenes.")
 
 func _setup_ui():
-	# Настройка кнопок с проверкой существования узлов
+	# Проверяем существование UI элементов
+	if $PlayerInfo == null:
+		print("Предупреждение: PlayerInfo контейнер не найден!")
+		return
+	
+	# Настройка кнопок с проверкой существования
 	var rest_button = $ActionButtons/RestButton
 	var hunt_button = $ActionButtons/HuntButton
 	
 	if rest_button != null and rest_button is Button:
 		rest_button.text = "Отдохнуть"
 	else:
-		push_error("RestButton не найден или не является типом Button")
+		print("Предупреждение: RestButton не найден или не является типом Button")
 	
 	if hunt_button != null and hunt_button is Button:
 		hunt_button.text = "Охотиться"
 	else:
-		push_error("HuntButton не найден или не является типом Button")
+		print("Предупреждение: HuntButton не найден или не является типом Button")
 	
-	# Первональное обновление информации
+	# Обновляем информацию
 	update_player_info()
 
 func _load_player_data():
-	# Сначала проверяем доступность PlayerData
-	if not PlayerData:
-		push_error("Синглтон PlayerData не доступен!")
-		return
+	# Загружаем данные игрока
+	var player_level = get_meta("player_level", 1)
+	var player_hp = get_meta("player_hp", 100)
+	var player_max_hp = get_meta("player_max_hp", 100)
+	var player_cp = get_meta("player_cp", 20)
+	var player_max_cp = get_meta("player_max_cp", 20)
 	
-	# Проверяем существование UI элементов
-	var level_label = $PlayerInfo/LevelLabel
-	var hp_label = $PlayerInfo/HPLabel
-	var cp_label = $PlayerInfo/CPLabel
-	var hp_bar = $PlayerInfo/HPBar
-	var cp_bar = $PlayerInfo/CPBar
+	# Сохраняем данные, если они отсутствуют
+	if not Engine.get_main_loop().has_meta("player_level"):
+		Engine.get_main_loop().set_meta("player_level", player_level)
+		Engine.get_main_loop().set_meta("player_hp", player_hp)
+		Engine.get_main_loop().set_meta("player_max_hp", player_max_hp)
+		Engine.get_main_loop().set_meta("player_cp", player_cp)
+		Engine.get_main_loop().set_meta("player_max_cp", player_max_cp)
 	
-	if level_label == null:
-		push_error("LevelLabel не подключен!")
-		return
-	if hp_label == null:
-		push_error("HPLabel не подключен!")
-		return
-	if cp_label == null:
-		push_error("CPLabel не подключен!")
-		return
-	if hp_bar == null:
-		push_error("HPBar не подключен!")
-		return
-	if cp_bar == null:
-		push_error("CPBar не подключен!")
-		return
-	
-	# Обновляем информацию
-	level_label.text = "Уровень: %d" % PlayerData.level
-	hp_label.text = "%d/%d" % [PlayerData.hp, PlayerData.max_hp]
-	cp_label.text = "%d/%d" % [PlayerData.cp, PlayerData.max_cp]
-	
-	# Обновляем прогресс-бары с проверкой на нулевые значения
-	if PlayerData.max_hp > 0:
-		hp_bar.value = float(PlayerData.hp) / float(PlayerData.max_hp) * 100
-	if PlayerData.max_cp > 0:
-		cp_bar.value = float(PlayerData.cp) / float(PlayerData.max_cp) * 100
+	update_player_info()
 
 func _connect_buttons():
+	# Подключаем кнопки с проверкой
 	var rest_button = $ActionButtons/RestButton
 	var hunt_button = $ActionButtons/HuntButton
 	
@@ -86,25 +68,6 @@ func _connect_buttons():
 	
 	if hunt_button != null:
 		hunt_button.pressed.connect(_on_hunt_pressed)
-
-func _validate_node_connections():
-	# Проверка основных узлов
-	var required_nodes = [
-		"ActionButtons",
-		"ActionButtons/RestButton",
-		"ActionButtons/HuntButton",
-		"PlayerInfo",
-		"PlayerInfo/LevelLabel",
-		"PlayerInfo/HPLabel",
-		"PlayerInfo/CPLabel",
-		"PlayerInfo/HPBar",
-		"PlayerInfo/CPBar",
-        "StatusLabel"
-	]
-	
-	for node_path in required_nodes:
-		if get_node(node_path) == null:
-			push_error("Узел не найден: " + node_path)
 
 func update_player_info():
 	var player_level = get_meta("player_level", 1)
@@ -116,103 +79,156 @@ func update_player_info():
 	# Обновляем информацию в UI
 	if $PlayerInfo/LevelLabel is Label:
 		$PlayerInfo/LevelLabel.text = "Уровень: %d" % player_level
+	else:
+		print("Предупреждение: LevelLabel не найден")
 	
 	if $PlayerInfo/HPLabel is Label:
 		$PlayerInfo/HPLabel.text = "%d/%d" % [player_hp, player_max_hp]
+	else:
+		print("Предупреждение: HPLabel не найден")
 	
 	if $PlayerInfo/CPLabel is Label:
 		$PlayerInfo/CPLabel.text = "%d/%d" % [player_cp, player_max_cp]
+	else:
+		print("Предупреждение: CPLabel не найден")
 	
 	# Обновляем прогресс-бары
 	if $PlayerInfo/HPBar is ProgressBar and player_max_hp > 0:
 		$PlayerInfo/HPBar.value = float(player_hp) / float(player_max_hp) * 100
+	else:
+		print("Предупреждение: HPBar не найден или max_hp = 0")
 	
 	if $PlayerInfo/CPBar is ProgressBar and player_max_cp > 0:
 		$PlayerInfo/CPBar.value = float(player_cp) / float(player_max_cp) * 100
+	else:
+		print("Предупреждение: CPBar не найден или max_cp = 0")
 
 func _on_rest_pressed():
 	# Полное восстановление HP и CP
-	if PlayerData:
-		PlayerData.hp = PlayerData.max_hp
-		PlayerData.cp = PlayerData.max_cp
-		update_player_info()
-		
-		# Шанс столкнуться с врагами во время отдыха
-		var rest_encounter_chance = pow(PlayerData.level / 100.0, 0.4)
-		if randf() < rest_encounter_chance:
-			_log("Во время отдыха на вас напали враги!")
-			_start_battle()
-		else:
-			_log("Вы спокойно отдохнули и восстановили все силы!")
+	var player_max_hp = get_meta("player_max_hp", 100)
+	var player_max_cp = get_meta("player_max_cp", 20)
+	
+	Engine.get_main_loop().set_meta("player_hp", player_max_hp)
+	Engine.get_main_loop().set_meta("player_cp", player_max_cp)
+	
+	update_player_info()
+	
+	# Шанс столкнуться с врагами во время отдыха
+	var rest_encounter_chance = pow(get_meta("player_level", 1) / 100.0, 0.4)
+	if randf() < rest_encounter_chance:
+		_log("Во время отдыха на вас напали враги!")
+		_start_battle()
+	else:
+		_log("Вы спокойно отдохнули и восстановили все силы!")
 
 func _on_hunt_pressed():
 	_start_battle()
-
 
 func _start_battle():
 	# Генерация партии врагов
 	var enemy_party = _generate_enemy_party()
 	
-	# Сохраняем данные для передачи в сцену боя
-	if PlayerData:
-		PlayerData.escape_penalty = max(0, PlayerData.escape_penalty - 1)
-		# Теперь это будет работать, так как свойство объявлено
-		PlayerData.current_enemy_party = enemy_party
+	# Сохраняем данные для передачи в бой
+	var player_data = {
+		"level": get_meta("player_level", 1),
+		"hp": get_meta("player_hp", 100),
+		"max_hp": get_meta("player_max_hp", 100),
+		"cp": get_meta("player_cp", 20),
+		"max_cp": get_meta("player_max_cp", 20)
+	}
 	
-	# Откладываем смену сцены
-	if Engine.get_main_loop() is SceneTree and get_tree() != null:
-		get_tree().create_timer(0.0).timeout.connect(_change_to_battle_scene)
+	# Сохраняем данные в мета-данные
+	Engine.get_main_loop().set_meta("battle_player_data", player_data)
+	Engine.get_main_loop().set_meta("battle_enemy_party", enemy_party)
+	
+	# Проверяем существование сцены боя
+	var battle_scene_path = "res://scenes/battle.tscn"
+	if ResourceLoader.exists(battle_scene_path):
+		# Планируем смену сцены через call_deferred
+		call_deferred("_change_to_battle_scene")
 	else:
-		print("SceneTree недоступен. Планируем смену сцены позже.")
-
-func _attempt_to_change_scene_later():
-	# Проверяем, доступно ли дерево сцен
-	if Engine.get_main_loop() is SceneTree and get_tree() != null:
-		get_tree().create_timer(0.0).timeout.connect(_change_to_battle_scene)
-	else:
-		print("SceneTree все еще недоступен. Смена сцены невозможна.")
+		_log("Ошибка: Сцена боя не найдена по пути: " + battle_scene_path)
 
 func _change_to_battle_scene():
-	# Двойная проверка перед сменой сцены
+	# Проверяем, что мы можем безопасно изменить сцену
 	if get_tree() != null:
-		# Убедимся, что путь к сцене правильный
-		var battle_scene_path = "res://scenes/main.tscn"
-		
-		# Проверяем, существует ли файл сцены
-		if ResourceLoader.exists(battle_scene_path):
-			get_tree().change_scene_to_file(battle_scene_path)
-		else:
-			print("Ошибка: Сцена боя не найдена по пути: ", battle_scene_path)
+		get_tree().change_scene_to_file("res://scenes/battle.tscn")
 	else:
-		print("SceneTree недоступен. Невозможно изменить сцену.")
+		# Если get_tree() все еще null, попробуем еще раз через таймер
+		if is_instance_valid(self):
+			var timer = Timer.new()
+			timer.wait_time = 0.01
+			timer.one_shot = true
+			timer.timeout.connect(_change_to_battle_scene)
+			add_child(timer)
+		else:
+			_log("Ошибка: Не удается переключиться на сцену боя - узел не в дереве сцен")
 
 func _generate_enemy_party() -> Array:
 	var enemy_party = []
 	
-	# Пример генерации партии (заглушка)
-	for i in range(randi() % 4 + 1):
+	# Определяем количество врагов (1-5)
+	var player_level = get_meta("player_level", 1)
+	var enemy_count = min(5, 1 + int(randf() * max(2, int(floor(player_level / 10)) + 1)))
+	
+	# Генерируем врагов
+	for i in range(enemy_count):
+		var enemy_type = _get_enemy_type_by_level(player_level)
 		var enemy = {
-			"type": randi() % 5,
-			"level": get_meta("player_level", 1)
+			"type": enemy_type,
+			"level": player_level
 		}
 		enemy_party.append(enemy)
 	
 	return enemy_party
 
+func _get_enemy_type_by_level(player_level: int) -> int:
+	var r = randf()
+	
+	# Базовые вероятности
+	var skeleton_prob = 0.6
+	var wolf_prob = 0.25
+	var boar_prob = 0.1
+	var bear_prob = 0.04
+	var druid_prob = 0.01
+	
+	# Корректируем вероятности в зависимости от уровня
+	if player_level >= 5:
+		skeleton_prob -= 0.2
+		wolf_prob += 0.1
+		boar_prob += 0.07
+		bear_prob += 0.02
+		druid_prob += 0.01
+	
+	if player_level >= 10:
+		skeleton_prob -= 0.3
+		wolf_prob -= 0.05
+		boar_prob += 0.05
+		bear_prob += 0.15
+		druid_prob += 0.15
+	
+	# Нормализуем вероятности
+	var total = skeleton_prob + wolf_prob + boar_prob + bear_prob + druid_prob
+	if total > 0:
+		skeleton_prob /= total
+		wolf_prob /= total
+		boar_prob /= total
+		bear_prob /= total
+		druid_prob /= total
+	
+	# Выбираем тип врага
+	if r < skeleton_prob:
+		return 0  # Скелет
+	elif r < skeleton_prob + wolf_prob:
+		return 1  # Волк
+	elif r < skeleton_prob + wolf_prob + boar_prob:
+		return 2  # Кабан
+	elif r < skeleton_prob + wolf_prob + boar_prob + bear_prob:
+		return 3  # Медведь
+	else:
+		return 4  # Друид
+
 func _log(message: String):
 	if $StatusLabel is Label:
 		$StatusLabel.text = message
 	print(message)
-
-
-func safe_change_scene(scene_path: String):
-	if get_tree() == null:
-		print("Сцена еще не в дереве. Планируем смену сцены на следующий кадр.")
-		get_tree().create_timer(0.0).timeout.connect(func(): safe_change_scene(scene_path))
-		return
-	
-	if !ResourceLoader.exists(scene_path):
-		print("Ошибка: Сцена не найдена по пути: " + scene_path)
-		return
-	
-	get_tree().change_scene_to_file(scene_path)

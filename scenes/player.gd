@@ -1,48 +1,44 @@
 class_name Player
 extends Character
 
-@export_group("Player Stats")
-@export var special_power: float = 0
+@export var special_power: float = 1.0
 @export var cp_gain: float = 0
 @export var level: int = 1
 @export var xp: int = 0
 @export var is_defending: bool = false
 
-# Добавляем методы для восстановления CP (маны)
-func gain_cp(amount: int) -> int:
-	var cp_gained = amount
-	cp = min(max_cp, cp + cp_gained)
-	return cp_gained
-
-
-func get_level() -> int:
-	return level
-
 
 func _ready():
-	hp = max_hp
+	# Устанавливаем имя узла, если оно стандартное
+	if name == "Player":
+		name = character_name
+	# Инициализируем характеристики
 	cp = max_cp
+	super._ready()
 
+func take_damage(amount: int) -> int:
+	var real_dmg = amount
+	if is_defending:
+		real_dmg *= 0.25
+	
+	hp = max(0, hp - real_dmg)
+	
+	# Восстанавливаем CP за полученный урон
+	cp = min(max_cp, cp + int(real_dmg * 0.1))
+	
+	return real_dmg
 
-# Метод для повышения уровня
+func deal_damage(target: Character, amount: float):
+	# Восстанавливаем CP за нанесенный урон
+	cp = min(max_cp, cp + int(amount * 0.1))
+	target.take_damage(amount)
+
 func level_up():
 	level += 1
-	max_hp = floor(max_hp * 1.2)
-	max_cp = floor(max_cp * 1.2)
-	damage = floor(damage * 1.15)
-	special_power *= 1.25
+	max_hp = floor(10 * pow(level, 1.7) + level)
+	max_cp = floor(2 * pow(level, 1.3) + level)
+	damage = floor(pow(level, 1.6) + level)
+	special_power = pow(level, 2)
 	hp = max_hp
 	cp = max_cp
-
-
-func save_state() -> Dictionary:
-	return {
-		"level": level,
-		"hp": hp,
-		"max_hp": max_hp,
-		"cp": cp,
-		"max_cp": max_cp,
-		"damage": damage,
-		"speed": speed,
-		"special_power": special_power
-	}
+	is_defending = false
