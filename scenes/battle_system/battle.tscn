@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bpwvek3lrqwkh"]
 
-[ext_resource type="PackedScene" uid="uid://daaw7lonpb7bu" path="res://battle_system/scenes/BattleSystem.tscn" id="1_th188"]
-[ext_resource type="PackedScene" uid="uid://d25geknfvijnp" path="res://battle_system/scenes/BattleUI.tscn" id="2_p1qf1"]
+[ext_resource type="PackedScene" uid="uid://daaw7lonpb7bu" path="res://scenes/battle_system/battle_system.tscn" id="1_th188"]
+[ext_resource type="PackedScene" uid="uid://d25geknfvijnp" path="res://scenes/hud/battle_ui.tscn" id="2_p1qf1"]
 
 [node name="Battle" type="Node2D"]
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnjgm2ovkkkal"]
+
+[ext_resource type="PackedScene" uid="uid://cyvk13gggodvc" path="res://scenes/characters/character.tscn" id="1_686vu"]
+[ext_resource type="Script" uid="uid://d380lhq64dijp" path="res://scenes/characters/player/player.gd" id="2_hss88"]
+[ext_resource type="SpriteFrames" uid="uid://c1pta8nvsgl76" path="res://assets/animations/player_anim.tres" id="3_qd3e3"]
+
+[node name="Player" instance=ExtResource("1_686vu")]
+script = ExtResource("2_hss88")
+special_power = 1.0
+cp_gain = 0.1
+level = 1
+xp = 0
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("3_qd3e3")

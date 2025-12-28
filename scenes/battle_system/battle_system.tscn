@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://daaw7lonpb7bu"]
+
+[ext_resource type="Script" uid="uid://dk7v6wac663yg" path="res://scenes/battle_system/battle_system.gd" id="1_iya3r"]
+[ext_resource type="PackedScene" uid="uid://bnjgm2ovkkkal" path="res://scenes/characters/player/player.tscn" id="2_uxmpg"]
+[ext_resource type="PackedScene" uid="uid://qai2klclyxkp" path="res://scenes/characters/enemies/enemy.tscn" id="3_5a783"]
+
+[node name="BattleSystem" type="Node"]
+script = ExtResource("1_iya3r")
+
+[node name="Player" parent="." instance=ExtResource("2_uxmpg")]
+position = Vector2(236, 233)
+special_power = 5.0
+cp_gain = 0.1
+level = 1
+xp = 0
+character_name = "Unknown"
+max_hp = 100
+max_cp = 30
+damage = 20
+speed = 5
+
+[node name="EnemiesContainer" type="Node2D" parent="."]
+position = Vector2(772, 280)
+
+[node name="Enemy" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(-25, -189)
+
+[node name="Enemy2" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(-25, -46)
+
+[node name="Enemy3" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(-23, 111)
+
+[node name="Enemy4" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(125, -114)
+
+[node name="Enemy5" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(125, 37)

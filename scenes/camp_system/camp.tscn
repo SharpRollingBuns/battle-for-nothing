@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy5j35vay1d1q"]
+
+[ext_resource type="Script" uid="uid://cjd7ead06rr86" path="res://scenes/camp_system/camp.gd" id="1_34i43"]
+[ext_resource type="Script" uid="uid://d3ifcab375buo" path="res://scenes/camp_system/camp_system.gd" id="2_4un2n"]
+[ext_resource type="Texture2D" uid="uid://cnlp2gk7u1al7" path="res://assets/pikselnyi-les-4.webp" id="3_4un2n"]
+[ext_resource type="PackedScene" uid="uid://da2x1x2bd6q27" path="res://scenes/hud/camp_ui.tscn" id="3_wc1ss"]
+
+[node name="CampScene" type="Node2D" node_paths=PackedStringArray("camp_ui", "camp_system")]
+script = ExtResource("1_34i43")
+camp_ui = NodePath("CanvasLayer/CampUI")
+camp_system = NodePath("CampSystem")
+
+[node name="CampSystem" type="Node" parent="."]
+script = ExtResource("2_4un2n")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4un2n")
+expand_mode = 1
+
+[node name="CampUI" parent="CanvasLayer" instance=ExtResource("3_wc1ss")]
+
+[connection signal="hunt_button_pressed" from="CanvasLayer/CampUI" to="." method="_on_camp_ui_hunt_button_pressed"]
+[connection signal="rest_button_pressed" from="CanvasLayer/CampUI" to="." method="_on_camp_ui_rest_button_pressed"]

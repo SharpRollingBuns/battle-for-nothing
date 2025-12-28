@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="PlayerInit" load_steps=2 format=3 uid="uid://cks1byggnrahi"]
+
+[ext_resource type="Script" uid="uid://cwbnxttca4gxt" path="res://resources/player_init.gd" id="1_nkltr"]
+
+[resource]
+script = ExtResource("1_nkltr")
+metadata/_custom_type_script = "uid://cwbnxttca4gxt"

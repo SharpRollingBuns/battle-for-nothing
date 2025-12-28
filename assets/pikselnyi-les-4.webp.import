@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnlp2gk7u1al7"
-path="res://.godot/imported/pikselnyi-les-4.webp-d7273399b083e9ed3bee5ee1a77eb58f.ctex"
+path="res://.godot/imported/pikselnyi-les-4.webp-fb3e95613ba07583fee935ed690674f3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://camp_system/assets/pikselnyi-les-4.webp"
-dest_files=["res://.godot/imported/pikselnyi-les-4.webp-d7273399b083e9ed3bee5ee1a77eb58f.ctex"]
+source_file="res://assets/pikselnyi-les-4.webp"
+dest_files=["res://.godot/imported/pikselnyi-les-4.webp-fb3e95613ba07583fee935ed690674f3.ctex"]
 
 [params]
 

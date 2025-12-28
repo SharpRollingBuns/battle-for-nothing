@@ -11,14 +11,13 @@ config_version=5
 [application]
 
 config/name="Battle for Nothing"
-run/main_scene="uid://cy5j35vay1d1q"
+run/main_scene="uid://wx6tjeybl4nr"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerData="*res://globals/player_data.gd"
-Project="*res://globals/project.gd"
+GameSession="*res://scripts/globals/game_session.gd"
 
 [display]
 
@@ -29,7 +28,11 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
-"res://battle_system/": "teal",
-"res://camp_system/": "orange",
-"res://globals/": "blue"
+"res://addons/": "red",
+"res://assets/": "orange",
+"res://resources/": "yellow",
+"res://scenes/": "blue",
+"res://scenes/characters/": "teal",
+"res://scenes/hud/": "pink",
+"res://scripts/": "gray"
 }
