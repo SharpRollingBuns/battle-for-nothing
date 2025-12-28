@@ -20,8 +20,8 @@ rest_button = NodePath("../CanvasLayer/CampUI/ActionButtons/RestButton")
 hunt_button = NodePath("../CanvasLayer/CampUI/ActionButtons/HuntButton")
 status_label = NodePath("../CanvasLayer/CampUI/PanelContainer2/MarginContainer/StatusLabel")
 level_label = NodePath("../CanvasLayer/CampUI/PanelContainer/MarginContainer/PlayerInfo/LevelLabel")
-hp_label = NodePath("")
-cp_label = NodePath("")
+hp_label = NodePath("../CanvasLayer/CampUI/PanelContainer/MarginContainer/PlayerInfo/HPCenter/HPLabel")
+cp_label = NodePath("../CanvasLayer/CampUI/PanelContainer/MarginContainer/PlayerInfo/CPCenter/CPLabel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
