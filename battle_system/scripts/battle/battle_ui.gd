@@ -93,12 +93,14 @@ func _update_interface():
 		return
 	
 	# Обновляем прогрессбары
-	hp_bar.value = float(player.get_hp_percent() * 100)
-	cp_bar.value = float(player.get_cp_percent() * 100)
+	hp_bar.value = int(player.hp)
+	hp_bar.max_value = int(player.max_hp)
+	cp_bar.value = int(player.cp)
+	cp_bar.max_value = int(player.max_cp)
 	
-	# Обновляем текстовые метки
-	hp_label.text = "%d/%d" % [player.hp, player.max_hp]
-	cp_label.text = "%d/%d" % [player.cp, player.max_cp]
+	## Обновляем текстовые метки
+	hp_label.text = "%d / %d" % [player.hp, player.max_hp]
+	cp_label.text = "%d / %d" % [player.cp, player.max_cp]
 	
 	# Обновляем информацию о врагах
 	_update_enemy_info()

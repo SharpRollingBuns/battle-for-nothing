@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 var player_data = {
 	"level": 1,
@@ -19,13 +19,13 @@ func _ready():
 
 func _setup_ui():
 	# Проверяем существование UI элементов
-	if $PlayerInfo == null:
+	if %PlayerInfo == null:
 		print("Предупреждение: PlayerInfo контейнер не найден!")
 		return
 	
 	# Настройка кнопок с проверкой существования
-	var rest_button = $ActionButtons/RestButton
-	var hunt_button = $ActionButtons/HuntButton
+	var rest_button = %ActionButtons/RestButton
+	var hunt_button = %ActionButtons/HuntButton
 	
 	if rest_button != null and rest_button is Button:
 		rest_button.text = "Отдохнуть"
@@ -60,8 +60,8 @@ func _load_player_data():
 
 func _connect_buttons():
 	# Подключаем кнопки с проверкой
-	var rest_button = $ActionButtons/RestButton
-	var hunt_button = $ActionButtons/HuntButton
+	var rest_button = %ActionButtons/RestButton
+	var hunt_button = %ActionButtons/HuntButton
 	
 	if rest_button != null:
 		rest_button.pressed.connect(_on_rest_pressed)
@@ -77,29 +77,23 @@ func update_player_info():
 	var player_max_cp = get_meta("player_max_cp", 20)
 	
 	# Обновляем информацию в UI
-	if $PlayerInfo/LevelLabel is Label:
-		$PlayerInfo/LevelLabel.text = "Уровень: %d" % player_level
+	if %PlayerInfo/LevelLabel is Label:
+		%PlayerInfo/LevelLabel.text = "Уровень: %d" % player_level
 	else:
 		print("Предупреждение: LevelLabel не найден")
 	
-	if $PlayerInfo/HPLabel is Label:
-		$PlayerInfo/HPLabel.text = "%d/%d" % [player_hp, player_max_hp]
-	else:
-		print("Предупреждение: HPLabel не найден")
-	
-	if $PlayerInfo/CPLabel is Label:
-		$PlayerInfo/CPLabel.text = "%d/%d" % [player_cp, player_max_cp]
-	else:
-		print("Предупреждение: CPLabel не найден")
-	
 	# Обновляем прогресс-бары
-	if $PlayerInfo/HPBar is ProgressBar and player_max_hp > 0:
-		$PlayerInfo/HPBar.value = float(player_hp) / float(player_max_hp) * 100
+	if %HPBar is ProgressBar and player_max_hp > 0:
+		%HPBar.value = player_hp
+		%HPBar.max_value = player_max_hp
+		%HPLabel.text = "%d / %d" % [player_hp, player_max_hp]
 	else:
 		print("Предупреждение: HPBar не найден или max_hp = 0")
 	
-	if $PlayerInfo/CPBar is ProgressBar and player_max_cp > 0:
-		$PlayerInfo/CPBar.value = float(player_cp) / float(player_max_cp) * 100
+	if %CPBar is ProgressBar and player_max_cp > 0:
+		%CPBar.value = player_cp
+		%CPBar.max_value = player_max_cp
+		%CPLabel.text = "%d / %d" % [player_cp, player_max_cp]
 	else:
 		print("Предупреждение: CPBar не найден или max_cp = 0")
 
@@ -229,6 +223,6 @@ func _get_enemy_type_by_level(player_level: int) -> int:
 		return 4  # Друид
 
 func _log(message: String):
-	if $StatusLabel is Label:
-		$StatusLabel.text = message
+	if %StatusLabel is Label:
+		%StatusLabel.text = message
 	print(message)

@@ -1,107 +1,230 @@
-[gd_scene load_steps=2 format=3 uid="uid://d25geknfvijnp"]
+[gd_scene load_steps=3 format=3 uid="uid://d25geknfvijnp"]
 
 [ext_resource type="Script" uid="uid://dw2uih6ueju6f" path="res://battle_system/scripts/battle/battle_ui.gd" id="1_xgg3j"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgg3j"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5019608)
+
 [node name="BattleUI" type="Control" node_paths=PackedStringArray("hp_bar", "cp_bar", "action_panel", "target_panel", "enemy_info_panel", "battle_log", "turn_counter", "hp_label", "cp_label")]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
 script = ExtResource("1_xgg3j")
-hp_bar = NodePath("HPBar")
-cp_bar = NodePath("CPBar")
-action_panel = NodePath("VBoxContainer")
-target_panel = NodePath("TargetPanel")
-enemy_info_panel = NodePath("EnemyInfoPanel")
-battle_log = NodePath("BattleLog")
-turn_counter = NodePath("Label")
-hp_label = NodePath("HPLabel")
-cp_label = NodePath("CPLabel")
+hp_bar = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/HPCenter/HPBar")
+cp_bar = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/CPCenter/CPBar")
+action_panel = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/ActionContainer")
+target_panel = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/MarginContainer/TargetPanel")
+enemy_info_panel = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer/EnemyInfoPanel")
+battle_log = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer/BattleLog")
+turn_counter = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/StepLabel")
+hp_label = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/HPCenter/HPLabel")
+cp_label = NodePath("BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/CPCenter/CPLabel")
 
-[node name="HPBar" type="ProgressBar" parent="."]
-modulate = Color(0.4956687, 0.8633464, 0, 1)
+[node name="BottomBar" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 742.0
-offset_right = 724.0
-offset_bottom = 769.0
+offset_top = -150.0
+offset_bottom = -150.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(0.76000124, 1.0104644)
 
-[node name="CPBar" type="ProgressBar" parent="."]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 772.00006
-offset_right = 732.0
-offset_bottom = 799.00006
-scale = Vector2(0.81069475, 1.0000002)
+[node name="PanelContainer" type="PanelContainer" parent="BottomBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 596.0
-offset_right = 80.0
-offset_bottom = 732.0
-
-[node name="AttackButton" type="Button" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomBar/PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomBar/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xgg3j")
+
+[node name="PlayerInfo" type="VBoxContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="StepLabel" type="Label" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo"]
+layout_mode = 2
+text = "Aboba"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HPCenter" type="Control" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HPBar" type="ProgressBar" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/HPCenter"]
+modulate = Color(0.4956687, 0.8633464, 0, 1)
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/HPCenter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "50/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CPCenter" type="Control" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="CPBar" type="ProgressBar" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/CPCenter"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false
+
+[node name="CPLabel" type="Label" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/CPCenter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "50/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo"]
+layout_mode = 2
+
+[node name="ActionContainer" type="VBoxContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/ActionContainer"]
+layout_mode = 2
+text = "Action"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/ActionContainer"]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/ActionContainer"]
+layout_mode = 2
 text = "Attack"
 
-[node name="AbilityButton" type="Button" parent="VBoxContainer"]
+[node name="AbilityButton" type="Button" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/ActionContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 text = "Ability"
 
-[node name="EscapeButton" type="Button" parent="VBoxContainer"]
+[node name="EscapeButton" type="Button" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/ActionContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
 text = "Escape"
 
-[node name="DefendButton" type="Button" parent="VBoxContainer"]
+[node name="DefendButton" type="Button" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/PlayerInfo/ActionContainer"]
 layout_mode = 2
 text = "Defend"
 
-[node name="TargetPanel" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MarginContainer2" type="MarginContainer" parent="BottomBar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
 
-[node name="EnemyInfoPanel" type="GridContainer" parent="."]
-layout_mode = 0
-offset_left = 880.0
-offset_top = 145.0
-offset_right = 920.0
-offset_bottom = 185.0
+[node name="PanelContainer" type="PanelContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
 
-[node name="BattleLog" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 639.99994
-offset_top = 564.0
-offset_right = 1222.9999
-offset_bottom = 743.0
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 7.0
-offset_right = 47.0
-offset_bottom = 23.0
+[node name="MarginContainer" type="MarginContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
 
-[node name="HPLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 560.0
-offset_top = 741.0
-offset_right = 600.0
-offset_bottom = 764.0
+[node name="TargetPanel" type="HBoxContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="CPLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 609.0
-offset_top = 775.0
-offset_right = 649.0
-offset_bottom = 798.0
+[node name="MarginContainer3" type="MarginContainer" parent="BottomBar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer3/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
+
+[node name="EnemyInfoPanel" type="GridContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer4" type="MarginContainer" parent="BottomBar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer4"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer4/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
+
+[node name="BattleLog" type="RichTextLabel" parent="BottomBar/PanelContainer/HBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "`Aboba`"

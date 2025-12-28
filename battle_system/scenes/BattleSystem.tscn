@@ -8,52 +8,71 @@
 script = ExtResource("1_iya3r")
 
 [node name="Player" parent="." instance=ExtResource("2_uxmpg")]
+position = Vector2(236, 233)
 special_power = 5.0
 max_cp = 30
 damage = 20
 speed = 5
 
-[node name="Enemy" parent="." instance=ExtResource("3_5a783")]
-position = Vector2(496, 138)
-enemy_type = null
-cooldown = null
-enraged = null
-resurrect_timer = null
-original_damage = null
-max_hp = null
-max_cp = null
-damage = null
-speed = null
-hp = null
-cp = null
-
-[node name="Enemy2" parent="." instance=ExtResource("3_5a783")]
-position = Vector2(676, 507)
-enemy_type = null
-cooldown = null
-enraged = null
-resurrect_timer = null
-original_damage = null
-max_hp = null
-max_cp = null
-damage = null
-speed = null
-hp = null
-cp = null
-
-[node name="Enemy3" parent="." instance=ExtResource("3_5a783")]
-position = Vector2(610, 290)
-enemy_type = null
-cooldown = null
-enraged = null
-resurrect_timer = null
-original_damage = null
-max_hp = null
-max_cp = null
-damage = null
-speed = null
-hp = null
-cp = null
-
 [node name="EnemiesContainer" type="Node2D" parent="."]
 position = Vector2(772, 280)
+
+[node name="Enemy" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(-25, -189)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null
+
+[node name="Enemy2" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(-25, -46)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null
+
+[node name="Enemy3" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(-23, 111)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null
+
+[node name="Enemy4" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(69, -114)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null
+
+[node name="Enemy5" parent="EnemiesContainer" instance=ExtResource("3_5a783")]
+position = Vector2(66, 37)
+enemy_type = null
+cooldown = null
+enraged = null
+resurrect_timer = null
+original_damage = null
+max_hp = null
+max_cp = null
+damage = null
+speed = null

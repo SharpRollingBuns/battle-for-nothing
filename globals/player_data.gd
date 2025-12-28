@@ -10,6 +10,7 @@ var special_power: float = 1.0
 var escape_penalty: int = 0
 var consecutive_battles: int = 0
 
+
 func save_current_state(player: Player):
 	if player != null:
 		level = player.level
@@ -20,6 +21,7 @@ func save_current_state(player: Player):
 		damage = player.damage
 		special_power = player.special_power
 
+
 func apply_to_player(player: Player):
 	if player != null:
 		player.level = level
@@ -29,6 +31,7 @@ func apply_to_player(player: Player):
 		player.max_cp = max_cp
 		player.damage = damage
 		player.special_power = special_power
+
 
 func reset_for_new_game():
 	level = 1

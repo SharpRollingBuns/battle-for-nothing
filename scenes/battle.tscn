@@ -7,4 +7,7 @@
 
 [node name="BattleSystem" parent="." instance=ExtResource("1_th188")]
 
-[node name="BattleUI" parent="." instance=ExtResource("2_p1qf1")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BattleUI" parent="CanvasLayer" node_paths=PackedStringArray("battle_system") instance=ExtResource("2_p1qf1")]
+battle_system = NodePath("../../BattleSystem")

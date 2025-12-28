@@ -87,7 +87,7 @@ func _start_battle():
 	}
 	
 	# Смена сцены на бой
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/battle.tscn")
 	
 
 func _generate_enemy_party() -> Array:

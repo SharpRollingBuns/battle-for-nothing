@@ -24,10 +24,7 @@ max_hp = null
 max_cp = null
 damage = null
 speed = null
-hp = null
-cp = null
 metadata/_custom_type_script = "uid://cf776qf5r8ihu"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(196, 307)
 sprite_frames = SubResource("SpriteFrames_qhqgy")

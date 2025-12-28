@@ -19,5 +19,6 @@ script = ExtResource("1_7p1mj")
 metadata/_custom_type_script = "uid://cf776qf5r8ihu"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_4ra3w")
 flip_v = true
