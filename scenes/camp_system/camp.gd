@@ -48,7 +48,7 @@ func _start_battle():
 	# Генерация партии врагов
 	var enemy_party = camp_system.generate_enemy_party()
 	var battle := battle_scene.instantiate()
-	battle.enemy_party = enemy_party
+	battle.load_party(GameSession.player_state, enemy_party)
 	
 	# Меняем сцену (безопаснее, чем было ранее)
 	get_tree().root.add_child(battle)

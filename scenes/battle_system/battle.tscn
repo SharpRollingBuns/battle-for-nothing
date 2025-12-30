@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpwvek3lrqwkh"]
+[gd_scene load_steps=4 format=3 uid="uid://bpwvek3lrqwkh"]
 
+[ext_resource type="Script" uid="uid://bo7bfe11j5n7b" path="res://scenes/battle_system/battle.gd" id="1_ra4og"]
 [ext_resource type="PackedScene" uid="uid://daaw7lonpb7bu" path="res://scenes/battle_system/battle_system.tscn" id="1_th188"]
 [ext_resource type="PackedScene" uid="uid://d25geknfvijnp" path="res://scenes/hud/battle_ui.tscn" id="2_p1qf1"]
 
-[node name="Battle" type="Node2D"]
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_ra4og")
 
 [node name="BattleSystem" parent="." instance=ExtResource("1_th188")]
 
