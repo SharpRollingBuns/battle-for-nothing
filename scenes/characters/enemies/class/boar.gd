@@ -19,18 +19,3 @@ func act(target: Character, all_enemies: Array):
 	cooldown += 1
 	if cooldown % 2 == 0:
 		target.take_damage(damage)
-
-func get_type_name() -> String:
-	return "Кабан"
-
-func get_base_max_hp() -> int:
-	return 80
-
-func get_base_damage() -> int:
-	return 15
-
-func get_base_speed() -> int:
-	return 10
-
-func get_enemy_color() -> Color:
-	return Color(0.6, 0.4, 0.2)  # Коричневый

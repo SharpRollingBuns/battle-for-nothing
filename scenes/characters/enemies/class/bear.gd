@@ -36,18 +36,3 @@ func act(target: Character, all_enemies: Array):
 		enraged = false  # Сбрасываем ярость после атаки
 	else:
 		target.take_damage(damage)
-
-func get_type_name() -> String:
-	return "Медведь"
-
-func get_base_max_hp() -> int:
-	return 200
-
-func get_base_damage() -> int:
-	return 12
-
-func get_base_speed() -> int:
-	return 6
-
-func get_enemy_color() -> Color:
-	return Color(0.4, 0.3, 0.2)  # Темно-коричневый

@@ -47,18 +47,3 @@ func act(target: Character, all_enemies: Array):
 func trigger_resurrect():
 	if resurrect_timer == -1:
 		resurrect_timer = 3
-
-func get_type_name() -> String:
-	return "Друид"
-
-func get_base_max_hp() -> int:
-	return 150
-
-func get_base_damage() -> int:
-	return 0
-
-func get_base_speed() -> int:
-	return 12
-
-func get_enemy_color() -> Color:
-	return Color(0.7, 0.3, 0.8)  # Фиолетовый

@@ -1,13 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://qai2klclyxkp"]
+[gd_scene load_steps=4 format=3 uid="uid://qai2klclyxkp"]
 
 [ext_resource type="Script" uid="uid://4gw5upfknsaj" path="res://scenes/characters/enemies/enemy.gd" id="1_7p1mj"]
 [ext_resource type="PackedScene" uid="uid://cyvk13gggodvc" path="res://scenes/characters/character.tscn" id="1_nwhyh"]
 [ext_resource type="SpriteFrames" uid="uid://l4vkxo5wehw" path="res://assets/animations/enemy_anim.tres" id="2_blu3w"]
-[ext_resource type="Script" uid="uid://bvt8cweoyrtjm" path="res://scenes/characters/enemies/class/bear.gd" id="4_mxrkf"]
-[ext_resource type="Script" uid="uid://d60nkyef4uvo" path="res://scenes/characters/enemies/class/skeleton.gd" id="5_jmxl0"]
-[ext_resource type="Script" uid="uid://dh5nxyhfp77nd" path="res://scenes/characters/enemies/class/boar.gd" id="6_60ha2"]
-[ext_resource type="Script" uid="uid://drh5hdau61hik" path="res://scenes/characters/enemies/class/wolf.gd" id="7_j8qac"]
-[ext_resource type="Script" uid="uid://q2b1l5axiph3" path="res://scenes/characters/enemies/class/druid.gd" id="8_5hkcg"]
 
 [node name="Enemy" instance=ExtResource("1_nwhyh")]
 script = ExtResource("1_7p1mj")
@@ -15,37 +10,3 @@ script = ExtResource("1_7p1mj")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = ExtResource("2_blu3w")
 flip_v = true
-
-[node name="bear" type="Node2D" parent="." index="1"]
-script = ExtResource("4_mxrkf")
-
-[node name="skeleton" type="Node2D" parent="." index="2"]
-script = ExtResource("5_jmxl0")
-character_name = "Скелетон(крутой)"
-max_hp = 30
-max_cp = 0
-damage = 5
-speed = 8
-
-[node name="boar" type="Node2D" parent="." index="3"]
-script = ExtResource("6_60ha2")
-character_name = "Кабан"
-max_hp = 80
-max_cp = 0
-damage = 15
-
-[node name="wolf" type="Node2D" parent="." index="4"]
-script = ExtResource("7_j8qac")
-character_name = "Волк"
-max_hp = 15
-max_cp = 0
-damage = 8
-speed = 18
-
-[node name="druid" type="Node2D" parent="." index="5"]
-script = ExtResource("8_5hkcg")
-character_name = "Друид"
-max_hp = 150
-max_cp = 0
-damage = 10
-speed = 12

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0m3yifm6iiap"]
+
+[ext_resource type="PackedScene" uid="uid://qai2klclyxkp" path="res://scenes/characters/enemies/enemy.tscn" id="1_a8v61"]
+[ext_resource type="Script" uid="uid://bvt8cweoyrtjm" path="res://scenes/characters/enemies/class/bear.gd" id="2_elo81"]
+
+[node name="Bear" instance=ExtResource("1_a8v61")]
+script = ExtResource("2_elo81")
+enraged = false
+original_damage = 0
+character_name = "Медведь"

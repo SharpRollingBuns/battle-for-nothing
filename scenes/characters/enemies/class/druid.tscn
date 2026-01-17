@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cny5k8j4dorpt"]
+
+[ext_resource type="PackedScene" uid="uid://qai2klclyxkp" path="res://scenes/characters/enemies/enemy.tscn" id="1_y56ma"]
+[ext_resource type="Script" uid="uid://q2b1l5axiph3" path="res://scenes/characters/enemies/class/druid.gd" id="2_ko3xv"]
+
+[node name="Druid" instance=ExtResource("1_y56ma")]
+script = ExtResource("2_ko3xv")
+resurrect_timer = -1
+max_cp = 0
+damage = 10
+speed = 12

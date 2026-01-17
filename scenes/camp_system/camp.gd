@@ -3,7 +3,7 @@ extends Node2D
 
 @export var camp_ui: CampUI
 @export var camp_system: CampSystem
-@onready var battle_scene := load("res://scenes/battle_system/battle.tscn") as PackedScene
+# @onready var battle_scene := load("res://scenes/battle_system/battle.tscn") as PackedScene
 
 
 func _ready():
@@ -17,7 +17,8 @@ func update_player_info():
 
 
 func _on_camp_ui_hunt_button_pressed() -> void:
-	_start_battle()
+	# _start_battle()
+	pass
 
 
 func _on_camp_ui_rest_button_pressed() -> void:
@@ -32,7 +33,7 @@ func _on_camp_ui_rest_button_pressed() -> void:
 		# Частично пополняем здоровье
 		player_state.hp = int((player_state.max_hp - player_state.hp) / 2.0)
 		player_state.cp = int((player_state.max_cp - player_state.cp) / 2.0)
-		_start_battle()
+		# _start_battle()
 	else:
 		# Полностью пополняем здоровье
 		player_state.hp = player_state.max_hp
@@ -44,17 +45,17 @@ func _on_camp_ui_rest_button_pressed() -> void:
 	update_player_info()
 
 
-func _start_battle():
+# func _start_battle():
 	# Генерация партии врагов
-	var enemy_party = camp_system.generate_enemy_party()
-	var battle := battle_scene.instantiate()
-	battle.load_party(GameSession.player_state, enemy_party)
+	# var enemy_party = camp_system.generate_enemy_party()
+	# var battle := battle_scene.instantiate()
+	# battle.load_party(GameSession.player_state, enemy_party)
 	
 	# Меняем сцену (безопаснее, чем было ранее)
-	get_tree().root.add_child(battle)
-	if get_tree().current_scene:
-		get_tree().current_scene.queue_free()
-	get_tree().current_scene = battle
+	# get_tree().root.add_child(battle)
+	# if get_tree().current_scene:
+		# get_tree().current_scene.queue_free()
+	# get_tree().current_scene = battle
 
 
 func _log(message: String):

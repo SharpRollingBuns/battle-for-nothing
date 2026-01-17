@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhcwenmoeeohe"]
+
+[ext_resource type="PackedScene" uid="uid://qai2klclyxkp" path="res://scenes/characters/enemies/enemy.tscn" id="1_md3hx"]
+[ext_resource type="Script" uid="uid://dh5nxyhfp77nd" path="res://scenes/characters/enemies/class/boar.gd" id="2_x4ufl"]
+
+[node name="Boar" instance=ExtResource("1_md3hx")]
+script = ExtResource("2_x4ufl")
+cooldown = 0
+original_damage = 0
+character_name = "Кабан"
+max_hp = 80
+max_cp = 0
+damage = 15

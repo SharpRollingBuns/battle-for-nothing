@@ -17,7 +17,8 @@ var cp: int = 0
 func _ready():
 	hp = max_hp
 	cp = max_cp
-
+	name = character_name
+	
 
 func take_damage(amount: int) -> int:
 	var damage_taken = amount

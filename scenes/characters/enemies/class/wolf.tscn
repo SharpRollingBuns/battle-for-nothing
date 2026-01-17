@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5iygfleyo6un"]
+
+[ext_resource type="PackedScene" uid="uid://qai2klclyxkp" path="res://scenes/characters/enemies/enemy.tscn" id="1_m57d2"]
+[ext_resource type="Script" uid="uid://drh5hdau61hik" path="res://scenes/characters/enemies/class/wolf.gd" id="2_0pq7u"]
+
+[node name="Wolf" instance=ExtResource("1_m57d2")]
+script = ExtResource("2_0pq7u")
+character_name = "Волк"
+max_hp = 15
+max_cp = 0
+damage = 8
+speed = 18
