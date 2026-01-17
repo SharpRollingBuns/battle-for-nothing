@@ -6,11 +6,6 @@
 
 [node name="Enemy" instance=ExtResource("1_nwhyh")]
 script = ExtResource("1_7p1mj")
-enemy_type = 0
-cooldown = 0
-enraged = false
-resurrect_timer = -1
-original_damage = 0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = ExtResource("2_blu3w")
