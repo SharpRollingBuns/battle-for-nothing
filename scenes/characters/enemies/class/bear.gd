@@ -4,14 +4,7 @@ extends Enemy
 @export var enraged: bool = false
 @export var original_damage: int = 0
 
-func _ready():
-	character_name = "Медведь"
-	max_hp = 200
-	max_cp = 0
-	damage = 12
-	speed = 6
-	original_damage = damage
-	super._ready()
+
 
 func take_damage(amount: int) -> int:
 	var real_damage = super.take_damage(amount)

@@ -3,13 +3,7 @@ extends Enemy
 
 @export var resurrect_timer: int = -1
 
-func _ready():
-	character_name = "Друид"
-	max_hp = 150
-	max_cp = 0
-	damage = 0
-	speed = 12
-	super._ready()
+
 
 func get_action_description(target: Character) -> String:
 	var healed_target = null

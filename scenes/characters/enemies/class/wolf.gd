@@ -1,13 +1,7 @@
 class_name WolfEnemy
 extends Enemy
 
-func _ready():
-	character_name = "Волк"
-	max_hp = 25
-	max_cp = 0
-	damage = 8
-	speed = 18
-	super._ready()
+
 
 func get_action_description(target: Character) -> String:
 	return "[Волк] нападает на %s, нанося %d урона!" % [target.character_name, damage]

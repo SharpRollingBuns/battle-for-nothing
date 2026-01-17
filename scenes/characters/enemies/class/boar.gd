@@ -4,14 +4,7 @@ extends Enemy
 @export var cooldown: int = 0
 @export var original_damage: int = 0
 
-func _ready():
-	character_name = "Кабан"
-	max_hp = 80
-	max_cp = 0
-	damage = 15
-	speed = 10
-	original_damage = damage
-	super._ready()
+
 
 func get_action_description(target: Character) -> String:
 	if cooldown % 2 == 0:

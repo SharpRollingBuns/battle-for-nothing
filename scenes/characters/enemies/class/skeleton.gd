@@ -1,13 +1,7 @@
 class_name Skeleton
 extends Enemy
 
-func _ready():
-	character_name = "Скелет"
-	max_hp = 30
-	max_cp = 0
-	damage = 5
-	speed = 8
-	super._ready()
+
 
 func get_action_description(target: Character) -> String:
 	return "[Скелет] атакует %s и наносит %d урона!" % [target.character_name, damage]
